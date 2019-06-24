@@ -6,7 +6,7 @@
 
 {% block content %}
 			<div id="board">
-				<form class="board-form" method="post" action="/board/write">
+				<form class="board-form" method="post" action="/board/reply/{{ originalid }}">
 					{% csrf_token %}
 					<table class="tbl-ex">
 						<tr>

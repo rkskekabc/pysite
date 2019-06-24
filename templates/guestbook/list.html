@@ -1,4 +1,5 @@
 {% extends '../base.html' %}
+{% load mathfilters %}
 
 {% block csslink %}
 <link href="/assets/css/guestbook.css" rel="stylesheet" type="text/css">
@@ -22,24 +23,44 @@
 					</table>
 				</form>
 				<ul>
-					<li>
-						{% for content in guestbook %}
-						<table>
-							<tr>
-								<td>[{{ content.id }}]</td>
-								<td>{{ content.name }}</td>
-								<td>{{ content.regdate }}</td>
-								<td><a href="/guestbook/deleteform/{{ content.id }}">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan=4>
-									{{ content.contents }}
-								</td>
-							</tr>
-						</table>
-						<br>
-						{% endfor %}
-					</li>
+					--{{ guestbook | length }} : {{ guestbook.count | add:1 | sub:2 }}--
+					{% for content in guestbook %}
+						<li>
+							{% if forloop.first %}
+								<table style="border-collapse: collapse; border:2px solid #666; background-color: #ddd">
+									<tr>
+										{% comment 'forloop variable' %}
+										<td>[{{ forloop.counter }} : {{ forloop.revcounter0 }}]</td>
+										{% endcomment %}
+										<td>[{{ guestbook.count | sub:forloop.counter | add:1 }}]</td>
+										<td>{{ content.name }} : {{ content.name | length }}</td>
+										<td>{{ content.regdate | date:'Y-m-d H:i:s' }}</td>
+										<td><a href="/guestbook/deleteform/{{ content.id }}">삭제</a></td>
+									</tr>
+									<tr>
+										<td colspan=4>
+											{{ content.contents | linebreaksbr }}
+										</td>
+									</tr>
+								</table>
+							{% else %}
+								<table>
+									<tr>
+										<td>[{{ forloop.revcounter }}]</td>
+										<td>{{ content.name }} : {{ content.name | length }}</td>
+										<td>{{ content.regdate | date:'Y-m-d H:i:s' }}</td>
+										<td><a href="/guestbook/deleteform/{{ content.id }}">삭제</a></td>
+									</tr>
+									<tr>
+										<td colspan=4>
+											{{ content.contents | linebreaksbr }}
+										</td>
+									</tr>
+								</table>
+							{% endif %}
+							<br>
+						</li>
+					{% endfor %}
 				</ul>
 			</div>
 {% endblock %}

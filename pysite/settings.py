@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'main',
     'user',
     'guestbook',
+    'board',
+    'mathfilters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +84,7 @@ DATABASES = {
         'NAME': 'pysite',
         'USER': 'pysite',
         'PASSWORD': 'pysite',
-        'HOST': '192.168.1.10',
+        'HOST': '192.168.1.39',
         'PORT': 5432
     }
 }
@@ -125,3 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'statics'),)
 STATIC_URL = '/assets/'
+
+
+# session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True

@@ -18,15 +18,40 @@ from django.urls import path
 import main.views as main_views
 import user.views as user_views
 import guestbook.views as guestbook_views
+import board.views as board_views
 
 urlpatterns = [
     path('', main_views.index),
     path('user/joinform', user_views.joinform),
     path('user/join', user_views.join),
     path('user/joinsuccess', user_views.joinsuccess),
+
     path('guestbook/', guestbook_views.list),
     path('guestbook/add', guestbook_views.add),
     path('guestbook/deleteform/<int:id>', guestbook_views.deleteform),
     path('guestbook/delete/<int:id>', guestbook_views.delete),
+
+    path('user/loginform', user_views.loginform),
+    path('user/login', user_views.login),
+    path('user/logout', user_views.logout),
+    path('user/updateform', user_views.updateform),
+    path('user/update', user_views.update),
+    path('user/api/checkemail', user_views.checkemail),
+
+    path('board/', board_views.list),
+    path('board', board_views.list),
+    path('board/writeform', board_views.writeform),
+    path('board/write', board_views.write),
+
+    path('board/delete/<int:id>', board_views.delete),
+
+    path('board/view/<int:id>', board_views.view),
+
+    path('board/modifyform/<int:id>', board_views.modifyform),
+    path('board/modify/<int:id>', board_views.modify),
+
+    path('board/replyform/<int:id>', board_views.replyform),
+    path('board/reply/<int:id>', board_views.reply),
+
     path('admin/', admin.site.urls),
 ]
